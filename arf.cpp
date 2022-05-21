@@ -1,7 +1,7 @@
-﻿#include <iostream>;
-#include <map>;
-#include <fstream>;
-#include <list>;
+﻿#include <iostream>
+#include <map>
+#include <fstream>
+#include <list>
 
 using namespace std;
 
@@ -17,27 +17,54 @@ bool comp(Node* a, Node* b)
 
 void perc(std::map<char, float[2]>& m) 
 {
-    char a; ifstream b("text.txt");
-    float high, low, ol, oh;
+    char a; ifstream b("text.txt"); ofstream a1("r.txt");
+    double high=0, low=0, ol=0, oh=0, ch;
+    int i = 0, size, r;
     map<char, float[2]>::iterator it;
     b >> a;
     it = m.find(a); 
     ol = m[it->first][0]; 
     oh = m[it->first][1];
-    while(b)
+    while (b)
     {
-        b >> a; it = m.find(a);
-        low = ol + (oh - ol) * m[it->first][0];
-        high = ol + (oh - ol) * m[it->first][1];
-        ol = low; oh = high;
-    }
+        while (i < 9) 
+        {
+            b >> a; it = m.find(a);
+            low = ol + (oh - ol) * m[it->first][0];
+            high = ol + (oh - ol) * m[it->first][1];
+            ol = low; oh = high; i++;
+        }
+        i = 0; b >> a; 
+        it = m.find(a);
+        ol = m[it->first][0];
+        oh = m[it->first][1];
+        //cout << '[' << low << ' ' << high << ']' << endl;
+        ch = 0; size = 31, r = 0;
+        while (ch < low)
+        {
 
+            if (ch + pow(2, -(32 - size)) < high)
+            { 
+                //cout << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
+                ch += pow(2, -(32 - size));
+                r |= 1 << size;
+                /*cout << '1';*/
+            }
+            else {
+                //cout << "a " << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
+            } /*'0'; */
+            size--;
+        }
+        cout << endl;
+        cout << ch << endl;
+        a1 << (char)r;
+    }
 }
 
 int main() 
 {
     cout << fixed;
-    cout.precision(6);
+    cout.precision(16);
     int i;
     float aski[256]; char x;
     float low=0, high=0, num=0;
@@ -68,7 +95,5 @@ int main()
         ma[(*j)->key][1] = high;
         cout << '[' << low <<';'<< high << ']'<< endl;
     }
-
-
-        
+    perc(ma);
 }
