@@ -142,8 +142,9 @@
     <ClCompile Include="arf.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="text.txt" />
-    <Text Include="r.txt" />
+    <Text Include="D:\chst.txt" />
+    <Text Include="D:\r.txt" />
+    <Text Include="D:\text.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

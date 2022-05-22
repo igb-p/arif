@@ -17,7 +17,7 @@ bool comp(Node* a, Node* b)
 
 void perc(std::map<char, float[2]>& m) 
 {
-    char a; ifstream b("text.txt"); ofstream a1("r.txt");
+    char a; ifstream b("D:/text.txt"); ofstream a1("D:/r.txt");
     double high=0, low=0, ol=0, oh=0, ch;
     int i = 0, size, r;
     map<char, float[2]>::iterator it;
@@ -27,7 +27,7 @@ void perc(std::map<char, float[2]>& m)
     oh = m[it->first][1];
     while (b)
     {
-        while (i < 9) 
+        while (i < 9&&b) 
         {
             b >> a; it = m.find(a);
             low = ol + (oh - ol) * m[it->first][0];
@@ -57,7 +57,7 @@ void perc(std::map<char, float[2]>& m)
         }
         cout << endl;
         cout << ch << endl;
-        a1 << (char)r;
+        a1 << r;
     }
 }
 
@@ -73,7 +73,7 @@ int main()
     map<char, float[2]> ma;
     map<char, float[2]>::iterator it;
     for (i = 0; i < 256; i++) aski[i] = 0;
-    ifstream a("text.txt");
+    ifstream a("D:/text.txt"); ofstream aa("D:/chst.txt");
     a.get(x); 
     while (a) {
         aski[(int)x]++; a.get(x); num++;
@@ -81,7 +81,8 @@ int main()
     for (i = 0; i < 256; i++) {
         if (aski[i] != 0)
         {
-            Node* r = new Node; r->key = (char)i; r->p = aski[i]/num;
+            Node* r = new Node; r->key = (char)i; r->p = aski[i] / num;
+            aa << ' '; aa << r->key; aa<<r->p;
             cout << (char)i << '-' << aski[i] / num<< endl;
             l.push_back(r);
         }
