@@ -27,21 +27,22 @@ void dr(int& kb, double ol, double oh, vector <bool>& v)
         if (ch + pow(2, -(32 - size)) < oh)
         {
             //cout << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
-            ch += pow(2, -(32 - size)); v.push_back(1); cout << '1';
+            ch += pow(2, -(32 - size)); v.push_back(1); 
             /*cout << '1';*/
         }
         else {
-            v.push_back(0); cout << '0';
+            v.push_back(0); /*cout << '0';*/
             //cout << "a " << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
         };/* */
         size--; i++;
         if (i == 8||ch>=ol) { i = 0; kb++; }
     }
-    cout<<endl << ch << endl;
-    cout << "kb=" << kb;
-    cout << endl;
+    /*cout<<endl << ch << endl;*/
+    /*cout << "kb=" << kb;
+    cout << endl;*/
 
 }
+
 
 
 void perc(std::map<char, float[2]>& m) 
@@ -61,12 +62,12 @@ void perc(std::map<char, float[2]>& m)
         it = m.find(a);
         low = m[it->first][0];
         high = m[it->first][1];
-        cout << a<<"-";
+        /*cout << a<<"-";*/
         dr(kb, low, high, vec1);
         if (kb <= 4) { vec = vec1; b.get(a); }
         while (kb < 4 && b)
         {
-            cout << a<<'-';
+            /*cout << a<<'-';*/
             vec1.clear();
             kb = 0;
             it = m.find(a); ol = low; oh = high;
@@ -75,17 +76,17 @@ void perc(std::map<char, float[2]>& m)
             dr(kb, low, high, vec1);
             if (kb <= 4) { vec = vec1; b.get(a); pos++; }
         }
-        cout << endl << "pos=" << pos<<endl;
+        /*cout << endl << "pos=" << pos<<endl;*/
         aaa << pos << ' ';
         //cout << '[' << low << ' ' << high << ']' << endl;
         i = 7;
         int byte = 0;
         for (int j = 0; j < vec.size(); j++) 
         {
-            cout << vec[j];
+            /*cout << vec[j];*/
             aa |= vec[j] << i;
             i--;
-            if (i < 0 || j == vec.size() - 1) { cout << endl; i = 7; a1 << aa; byte++; }
+            if (i < 0 || j == vec.size() - 1) { i = 7; /*cout << (int)aa << endl;*/ a1 << aa; byte++; aa = 0; }
         }
         while (byte < 4) { aa = 0; a1 << aa; byte++; }
     }
@@ -114,19 +115,19 @@ int main()
         if (aski[i] != 0)
         {
             Node* r = new Node; r->key = (char)i; r->p = aski[i] / num;
-            aa << ' '; aa << r->key; aa<<r->p;
-            cout << (char)i << '-' << aski[i] / num<< endl;
+            aa << ' '; aa << r->key; aa<<aski[i];
+            /*cout << (char)i << '-' << aski[i] / num<< endl;*/
             l.push_back(r);
         }
     }
     l.sort(comp);
 
     for (j=l.begin();j!=l.end();j++)
-    {   cout<<(*j)->key;
+    {   /*cout<<(*j)->key;*/
         low = high; high = low + (*j)->p;
         ma[(*j)->key][0] = low;
         ma[(*j)->key][1] = high;
-        cout << '[' << low <<';'<< high << ']'<< endl;
+       /* cout << '[' << low <<';'<< high << ']'<< endl;*/
     }
     perc(ma);
 }

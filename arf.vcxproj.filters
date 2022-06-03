@@ -29,8 +29,6 @@
     <Text Include="D:\r.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="posl.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
+    <Text Include="D:\posl.txt" />
   </ItemGroup>
 </Project>

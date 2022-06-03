@@ -143,9 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="D:\chst.txt" />
+    <Text Include="D:\posl.txt" />
     <Text Include="D:\r.txt" />
     <Text Include="D:\text.txt" />
-    <Text Include="posl.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
