@@ -2,6 +2,7 @@
 #include <map>
 #include <fstream>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -15,51 +16,81 @@ bool comp(Node* a, Node* b)
     return a->p > b->p;
 }
 
+void dr(int& kb, double ol, double oh, vector <bool>& v)
+{
+    double ch = 0; int size = 31;
+    kb = 0;
+    int i = 0;
+    while (ch < ol)
+    {
+
+        if (ch + pow(2, -(32 - size)) < oh)
+        {
+            //cout << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
+            ch += pow(2, -(32 - size)); v.push_back(1); cout << '1';
+            /*cout << '1';*/
+        }
+        else {
+            v.push_back(0); cout << '0';
+            //cout << "a " << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
+        };/* */
+        size--; i++;
+        if (i == 8||ch>=ol) { i = 0; kb++; }
+    }
+    cout<<endl << ch << endl;
+    cout << "kb=" << kb;
+    cout << endl;
+
+}
+
+
 void perc(std::map<char, float[2]>& m) 
 {
-    char a; ifstream b("D:/text.txt"); ofstream a1("D:/r.txt");
-    double high=0, low=0, ol=0, oh=0, ch;
-    int i = 0, size, r;
+    char a, aa=0; ifstream b("D:/text.txt"); ofstream a1("D:/r.txt");
+    ofstream aaa("D:/posl.txt");
+    double high=0, low=0, ol=0, oh=0;
+    int i = 0, kb;
     map<char, float[2]>::iterator it;
-    b >> a;
-    it = m.find(a); 
-    ol = m[it->first][0]; 
-    oh = m[it->first][1];
-    while (b)
-    {
-        while (i < 9&&b) 
+    vector <bool>vec;
+    vector <bool>vec1;
+    b.get(a);
+    while (b) {
+        vec1.clear();
+        int pos=1;
+        kb = 0;
+        it = m.find(a);
+        low = m[it->first][0];
+        high = m[it->first][1];
+        cout << a<<"-";
+        dr(kb, low, high, vec1);
+        if (kb <= 4) { vec = vec1; b.get(a); }
+        while (kb < 4 && b)
         {
-            b >> a; it = m.find(a);
+            cout << a<<'-';
+            vec1.clear();
+            kb = 0;
+            it = m.find(a); ol = low; oh = high;
             low = ol + (oh - ol) * m[it->first][0];
             high = ol + (oh - ol) * m[it->first][1];
-            ol = low; oh = high; i++;
+            dr(kb, low, high, vec1);
+            if (kb <= 4) { vec = vec1; b.get(a); pos++; }
         }
-        i = 0; b >> a; 
-        it = m.find(a);
-        ol = m[it->first][0];
-        oh = m[it->first][1];
+        cout << endl << "pos=" << pos<<endl;
+        aaa << pos << ' ';
         //cout << '[' << low << ' ' << high << ']' << endl;
-        ch = 0; size = 31, r = 0;
-        while (ch < low)
+        i = 7;
+        int byte = 0;
+        for (int j = 0; j < vec.size(); j++) 
         {
-
-            if (ch + pow(2, -(32 - size)) < high)
-            { 
-                //cout << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
-                ch += pow(2, -(32 - size));
-                r |= 1 << size;
-                /*cout << '1';*/
-            }
-            else {
-                //cout << "a " << 32 - size << ' ' << ch + pow(2, -(32 - size)) << endl;
-            } /*'0'; */
-            size--;
+            cout << vec[j];
+            aa |= vec[j] << i;
+            i--;
+            if (i < 0 || j == vec.size() - 1) { cout << endl; i = 7; a1 << aa; byte++; }
         }
-        cout << endl;
-        cout << ch << endl;
-        a1 << r;
+        while (byte < 4) { aa = 0; a1 << aa; byte++; }
     }
 }
+
 
 int main() 
 {
@@ -74,6 +105,7 @@ int main()
     map<char, float[2]>::iterator it;
     for (i = 0; i < 256; i++) aski[i] = 0;
     ifstream a("D:/text.txt"); ofstream aa("D:/chst.txt");
+    
     a.get(x); 
     while (a) {
         aski[(int)x]++; a.get(x); num++;
