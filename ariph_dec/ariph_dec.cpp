@@ -28,12 +28,12 @@ void vlist(list<Node*>& l, float &weight1)
 	while (aa)
 	{
 		Node* r = new Node; r->key = s; r->p = ch;
-		/*cout << r->key << '-' << r->p << endl;*/
+		//cout << r->key << '-' << r->p << endl;
 		l.push_back(r);
 		aa.get(pr); aa.get(s); aa >> ch;
 		if (aa) weight1+=ch;
 	}
-	/*cout << weight1 << endl;*/
+	//cout << weight1 << endl;
 	aa.close();
 }
 
@@ -44,11 +44,11 @@ void vmapy(map<char, float[2]>& m, list<Node*> l, float weight1)
 	map<char, float[2]>::iterator it;
 	for (j = l.begin(); j != l.end(); j++)
 	{
-		/*cout << (*j)->key;*/
+		//cout << (*j)->key;
 		low = high; high = low + (*j)->p/weight1;
 		m[(*j)->key][0] = low;
 		m[(*j)->key][1] = high;
-		/*cout << '[' << low << ';' << high << ']' << endl;*/
+		//cout << '[' << low << ';' << high << ']' << endl;
 	}
 }
 
@@ -59,10 +59,10 @@ void vec(vector<bool>& v, char s)
 	{
 		if (s & 1 << i)
 		{
-			v.push_back(1); /*cout << '1';*/
+			v.push_back(1); //cout << '1';
 		}
 		else {
-			v.push_back(0); /*cout << '0';*/
+			v.push_back(0); //cout << '0';
 		}
 		i--;
 	}
@@ -86,19 +86,19 @@ void srv(double ch, ifstream& pos, ofstream& dec, map<char, float[2]>& m)
 	double low, high;
 	int posl, pod=0;
 	pos >> posl;
-	/*cout << posl << endl;*/
+	//cout << posl << endl;
 	while (pod != posl)
 	{
 		it = m.begin();
-		while (ch <= m[it->first][0] || ch > m[it->first][1]) it++;
+		while (ch < m[it->first][0] || ch >= m[it->first][1]) it++;
 		dec << it->first;
-		/*cout << it->first << ' ';*/
+		//cout << it->first << ' ';
 	    low = m[it->first][0];
 		high = m[it->first][1];
 		ch = (ch - low) / (high - low);
 		pod++;
 	}
-	/*cout << endl;*/
+	//cout << endl;
 }
 
 void decn(map<char, float[2]>& m, float& weight2)
@@ -131,9 +131,9 @@ void decn(map<char, float[2]>& m, float& weight2)
 			aa.get(s);
 			kol++;
 		}
-		/*cout << endl;*/
+		//cout << endl;
 		ch = chp(v);
-		/*cout << ch << endl;*/
+		//cout << ch << endl;
 		srv(ch, pos, dec, m);
 		weight2 += 4;
 	}
@@ -173,7 +173,7 @@ int main()
 	l.sort(comp);
 	vmapy(ma, l, weight1);
 	decn(ma, weight2);
-	cout << endl;
+	//cout << endl;
 	if (proof()) cout << "совпали";
 	else cout << "не совпали";
 	cout << endl;
